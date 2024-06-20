@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Network Activity Report</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        h1,
+        h2 {
+            text-align: center;
+        }
+
+        .summary {
+            margin: 20px 0;
+            text-align: center;
+        }
+
+        .chart {
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .chart img {
+            max-width: 600px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Network Activity Report</h1>
+
+    <div class="summary">
+        <h2>Summary</h2>
+        <p>Total Packets: {{ total_packets }}</p>
+        <p>Total Attacks: {{ total_attacks }}</p>
+    </div>
+
+    <div class="chart">
+        <img src="data:image/png;base64,{{ ip_chart }}" alt="IP Address Distribution">
+    </div>
+
+    <div class="chart">
+        <img src="data:image/png;base64,{{ port_chart }}" alt="Port Distribution">
+    </div>
+
+    <div class="chart">
+        <img src="data:image/png;base64,{{ protocol_chart }}" alt="Protocol Distribution">
+    </div>
+</body>
+
+</html>

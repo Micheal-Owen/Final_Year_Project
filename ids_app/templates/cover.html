@@ -1,0 +1,68 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Intrusion Detection System</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/fontawesome.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/auth.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/sb-admin-2.min.css' %}">
+    <style>
+        .cover-container {
+            background: #f0f5f9;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            text-align: center;
+            padding: 20px;
+        }
+        .cover-logo img {
+            width: 150px;
+            height: auto;
+            margin-bottom: 20px;
+        }
+        .cover-title {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            color: #1e88e5;
+        }
+        .cover-text {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            color: #333;
+        }
+        .cover-buttons {
+            display: flex;
+            gap: 20px;
+        }
+        .cover-buttons a {
+            padding: 10px 20px;
+            background: #1e88e5;
+            color: #fff;
+            border-radius: 5px;
+            text-decoration: none;
+            transition: background 0.3s;
+        }
+        .cover-buttons a:hover {
+            background: #1565c0;
+        }
+    </style>
+</head>
+<body>
+    <div class="cover-container">
+        <div class="cover-logo">
+            <img src="{% static 'img/logo.png' %}" alt="IDS Logo">
+        </div>
+        <div class="cover-title">Welcome to the Intrusion Detection System</div>
+        <div class="cover-text">Protecting your network from unauthorized access and potential threats.</div>
+        <div class="cover-buttons">
+            <a href="{% url 'login' %}">Login</a>
+            <a href="{% url 'register' %}">Register</a>
+        </div>
+    </div>
+</body>
+</html>

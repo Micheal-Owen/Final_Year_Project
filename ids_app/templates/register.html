@@ -1,0 +1,40 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Registration Page</title>
+  <link rel="stylesheet" href="{% static 'css/log.css' %}">
+</head>
+
+<body style="background: darkcyan;">
+  <div class="wrapper">
+    <form action="{% url 'register' %}" method='POST'>{% csrf_token %}
+      <h2>Signup</h2>
+      <div class="input-field">
+        <i class="uil uil-envelope-alt email"></i>
+        <input type="text" name="username" required />
+        <label>Username</label>
+      </div>
+      <div class="input-field">
+        <i class="uil uil-lock password"></i>
+        <input type="password" name="password" required />
+        <label>Create Password</label>
+      </div>
+      <div class="input-field">
+        <i class="uil uil-lock password"></i>
+        <input type="password" name="password_confirm" required />
+        <label>Confirm Password</label>
+      </div>
+      <button class="button" type="submit">Register</button>
+      <div class="login_signup">
+        <p>Already have an account? <a href="{% url 'login' %}" id="login">Login</a></p>
+      </div>
+    </form>
+  </div>
+</body>
+
+</html>

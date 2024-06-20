@@ -1,0 +1,173 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Mitigation{% endblock %}
+
+{% block content %}
+<!-- Begin Page Content -->
+<div class="container-fluid">
+    <!-- Page Heading -->
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <h1 class="h3 mb-0 text-gray-800">Mitigation Dashboard</h1>
+    </div>
+
+    <!-- Content Row -->
+    <div class="row">
+        <!-- Current Attack Status -->
+        <div class="col-xl-12 col-lg-12 mb-4">
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">Current Attack Status</h6>
+                </div>
+                <div class="card-body">
+                    <div id="currentAttackStatus">
+                        <!-- Current attack status will be dynamically loaded here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Historical Data and Mitigation Techniques -->
+    <div class="row">
+        <div class="col-xl-12 col-lg-12 mb-4">
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">Historical Data and Mitigation Techniques</h6>
+                </div>
+                <div class="card-body">
+                    <div id="historicalData">
+                        <!-- Historical data will be dynamically loaded here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- IP Addresses and Associated Attacks -->
+    <div class="row">
+        <div class="col-xl-12 col-lg-12 mb-4">
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">IP Addresses and Associated Attacks</h6>
+                </div>
+                <div class="card-body">
+                    <div id="ipAddresses">
+                        <!-- IP addresses and associated attacks will be dynamically loaded here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<!-- Include your JavaScript -->
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+<script>
+    $(document).ready(function() {
+        // Fetch current attack status
+        function fetchCurrentAttackStatus() {
+            $.ajax({
+                url: "{% url 'current_attack_status' %}",
+                method: "GET",
+                success: function(data) {
+                    $('#currentAttackStatus').empty();
+                    if (data.is_under_attack) {
+                        $('#currentAttackStatus').append(`
+                            <div class="alert alert-danger" role="alert">
+                                <h4 class="alert-heading">Network Under Attack!</h4>
+                                <p>${data.report}</p>
+                            </div>
+                        `);
+                    } else {
+                        $('#currentAttackStatus').append(`
+                            <div class="alert alert-success" role="alert">
+                                <h4 class="alert-heading">No Current Attacks</h4>
+                                <p>The network is currently secure.</p>
+                            </div>
+                        `);
+                    }
+                },
+                error: function(error) {
+                    console.log(error); // Log error if there's an issue
+                }
+            });
+        }
+
+        // Fetch historical data and mitigation techniques
+        function fetchHistoricalData() {
+            $.ajax({
+                url: "{% url 'historical_data' %}",
+                method: "GET",
+                success: function(data) {
+                    $('#historicalData').empty();
+                    data.attacks.forEach(function(attack) {
+                        $('#historicalData').append(`
+                            <div class="card mb-3">
+                                <div class="card-header">
+                                    ${attack.name} - ${attack.count} Occurrences
+                                    <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#attack${attack.id}" aria-expanded="false" aria-controls="attack${attack.id}">
+                                        Details
+                                    </button>
+                                </div>
+                                <div id="attack${attack.id}" class="collapse">
+                                    <div class="card-body">
+                                        <p><strong>Source IPs:</strong> ${attack.src_ips.join(', ')}</p>
+                                        <p><strong>Destination IPs:</strong> ${attack.dst_ips.join(', ')}</p>
+                                        <p><strong>Protocols:</strong> ${attack.protocols.join(', ')}</p>
+                                        <h5>Mitigation Techniques:</h5>
+                                        <ul>
+                                            ${attack.mitigation_techniques.map(technique => `<li>${technique}</li>`).join('')}
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        `);
+                    });
+                }
+            });
+        }
+
+        // Fetch IP addresses and associated attacks
+        function fetchIPAddresses() {
+            $.ajax({
+                url: "{% url 'ip_addresses_data' %}",
+                method: "GET",
+                success: function(data) {
+                    $('#ipAddresses').empty();
+                    data.ip_addresses.forEach(function(ip) {
+                        $('#ipAddresses').append(`
+                            <div class="card mb-3">
+                                <div class="card-header">
+                                    ${ip.address}
+                                    <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#ip${ip.id}" aria-expanded="false" aria-controls="ip${ip.id}">
+                                        Details
+                                    </button>
+                                </div>
+                                <div id="ip${ip.id}" class="collapse">
+                                    <div class="card-body">
+                                        <h5>Associated Attacks:</h5>
+                                        <ul>
+                                            ${ip.attacks.map(attack => `<li>${attack.type} - ${attack.dst_ip} - ${attack.time}</li>`).join('')}
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        `);
+                    });
+                }
+            });
+        }
+
+        // Initial fetch
+        fetchCurrentAttackStatus();
+        fetchHistoricalData();
+        fetchIPAddresses();
+
+        // Optional: Refresh every minute to check for new attacks
+        setInterval(fetchCurrentAttackStatus, 60000); // Refresh every 60 seconds
+    });
+</script>
+{% endblock %}

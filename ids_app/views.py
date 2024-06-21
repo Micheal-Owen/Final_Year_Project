@@ -397,7 +397,7 @@ def ip_addresses_data(request):
     return JsonResponse(data)
 
 
-@login_required
+
 @api_view(['POST'])
 def packet_data(request):
     """
@@ -491,8 +491,6 @@ def attack_types_data(request):
     # Return the JSON response
     return JsonResponse(data)
 
-
-@login_required
 @csrf_exempt
 def packet(request):
     """
@@ -516,6 +514,7 @@ def packet(request):
     if request.method == 'POST':
         # Parse the JSON payload
         data = json.loads(request.body)
+        print(data)
 
         # Create a Packet object with the packet data
         packet = Packet(

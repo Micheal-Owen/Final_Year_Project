@@ -294,7 +294,6 @@ def current_attack_status(request):
     return JsonResponse({'is_under_attack': False})
 
 ## Displays the historical attacks and what they targetted, also including some mitigaton techniques
-@login_required
 def historical_data(request):
     """
     Returns a JSON response containing historical attack data.
@@ -337,7 +336,6 @@ def historical_data(request):
     }
     return JsonResponse(data)
 
-@login_required
 def get_mitigation_techniques(attack_type):
     """
     Returns a list of mitigation techniques for a given attack type.

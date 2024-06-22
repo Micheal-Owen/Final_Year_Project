@@ -17,11 +17,11 @@ Welcome to the Intrusion Detection System (IDS) documentation. This IDS monitors
 ### Prerequisites
 Before installing the IDS, ensure you have the following prerequisites:
 
-Python 3.8 or higher
-pip (Python package installer)
-Virtualenv (optional but recommended)
-SQLite (default database)
-Internet connection for downloading dependencies
+- Python 3.8 or higher
+- pip (Python package installer)
+- Virtualenv (optional but recommended)
+- SQLite (default database)
+- Internet connection for downloading dependencies
 
 ### Steps
 #### Clone the Repository:
@@ -29,8 +29,8 @@ git clone https://github.com/your-username/ids-project.git
 cd ids-project
 
 #### Create a Virtual Environment (optional but recommended):
-python -m venv venv
-source venv/bin/activate  # On Windows, use `venv\Scripts\activate`
+```python -m venv venv```
+```source venv/bin/activate```  # On Windows, use 'venv\Scripts\activate'
 
 #### Install Dependencies:
 pip install -r requirements.txt

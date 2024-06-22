@@ -2,19 +2,27 @@
 
 <!DOCTYPE html>
 <html>
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Admin Registration Page</title>
   <link rel="stylesheet" href="{% static 'css/auth.css' %}">
+  <style>
+    .error {
+      color: red;
+      margin-top: 10px;
+    }
+  </style>
 </head>
+
 <body>
   <div class="container">
     <div class="wrapper">
       <div class="logo">
         <img src="{% static 'img/icon1.png' %}" alt="Company Logo">
       </div>
-      <form action="{% url 'register' %}" method="POST">{% csrf_token %}
+      <form action="{% url 'register' %}" method='POST'>{% csrf_token %}
         <h2>Register</h2>
         <div class="input-field">
           <i class="uil uil-envelope-alt email"></i>
@@ -30,7 +38,7 @@
         <div class="input-field">
           <i class="uil uil-lock password"></i>
           <i class="uil uil-eye-slash pw_hide"></i>
-          <input type="password" name="newpassword" required />
+          <input type="password" name="password_confirm" required />
           <label>Confirm Password</label>
         </div>
         <button class="button" type="submit">Register</button>
@@ -38,12 +46,13 @@
           <p>Already have an account? <a href="{% url 'login' %}" id="login">Login</a></p>
         </div>
         {% if error %}
-        <div class="error">
-          <p>{{ error }}</p>
-        </div>
+          <div class="error">
+            <p>{{ error }}</p>
+          </div>
         {% endif %}
       </form>
     </div>
   </div>
 </body>
+
 </html>

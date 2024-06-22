@@ -33,16 +33,16 @@ cd ids-project
 - ```source venv/bin/activate```  # On Windows, use 'venv\Scripts\activate'
 
 #### Install Dependencies:
-pip install -r requirements.txt
+```pip install -r requirements.txt```
 
 #### Apply Database Migrations:
-python manage.py migrate
+```python manage.py migrate```
 
 #### Create a Superuser:
-python manage.py createsuperuser
+```python manage.py createsuperuser```
 
 #### Run the Development Server:
-python manage.py runserver
+```python manage.py runserver```
 
 #### Access the Application:
 Open your web browser and navigate to http://127.0.0.1:8000/.
@@ -62,7 +62,7 @@ DATABASES = {
 #### Installed Apps:
 Ensure the IDS app is included in the INSTALLED_APPS list:
 INSTALLED_APPS = [
-    ...
+    ```
     'ids_app',
 ]
 
@@ -72,14 +72,15 @@ STATIC_URL = '/static/'
 Templates:
 TEMPLATES = [
     {
-        ...
+        ```
         'DIRS': [BASE_DIR / 'templates'],
-        ...
+        ```
     },
 ]
 
 #### Environment Variables
 You can configure sensitive settings using environment variables. Create a .env file in the project root and add variables like:
+
 SECRET_KEY=your_secret_key
 DEBUG=True
 ALLOWED_HOSTS=127.0.0.1, localhost
@@ -87,7 +88,8 @@ ALLOWED_HOSTS=127.0.0.1, localhost
 ## 4. Usage
 #### Running the Packet Sniffer
 To start capturing network packets and sending data to the IDS:
-python sniff.py
+
+```python sniff.py``` or ```sudo python3 sniff.py``` # for Linux users
 
 #### Accessing the Dashboard
 Navigate to http://127.0.0.1:8000/dashboard/ to view the real-time dashboard, including network activity, attack status, and more.

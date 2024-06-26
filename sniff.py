@@ -18,7 +18,7 @@ scaler = joblib.load('scaler.joblib')
 # Load the label encoder
 label_encoder = joblib.load('label_encoder.joblib')
 
-# Django server URL
+# Django server URL``
 DJANGO_SERVER_URL = 'http://127.0.0.1:8000/api/packet/'
 
 # Function to extract features from packets

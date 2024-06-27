@@ -50,6 +50,35 @@
     <div class="chart">
         <img src="data:image/png;base64,{{ protocol_chart }}" alt="Protocol Distribution">
     </div>
+
+    <div class="details">
+        <h2>Attack Details</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Attack Type</th>
+                    <th>Source IP</th>
+                    <th>Destination IP</th>
+                    <th>Destination Port</th>
+                    <th>Protocol</th>
+                    <th>Time</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for attack in attacks %}
+                <tr>
+                    <td>{{ attack.attack_type }}</td>
+                    <td>{{ attack.src_ip }}</td>
+                    <td>{{ attack.dst_ip }}</td>
+                    <td>{{ attack.dst_port }}</td>
+                    <td>{{ attack.protocol }}</td>
+                    <td>{{ attack.timestamp }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    
 </body>
 
 </html>

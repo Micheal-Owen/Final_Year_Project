@@ -309,7 +309,7 @@
                         options: {
                             maintainAspectRatio: false,
                             scales: {
-                                xAxes: [{
+                                x: [{
                                     time: {
                                         unit: 'minute'
                                     },
@@ -320,7 +320,7 @@
                                         maxTicksLimit: 10
                                     }
                                 }],
-                                yAxes: [{
+                                y: [{
                                     ticks: {
                                         maxTicksLimit: 5,
                                         padding: 10
@@ -360,7 +360,7 @@
                         },
                         options: {
                             maintainAspectRatio: false,
-                            tooltips: {
+                            tooltip: {
                                 backgroundColor: "rgb(255,255,255)",
                                 bodyFontColor: "#858796",
                                 borderColor: '#dddfeb',
@@ -373,7 +373,7 @@
                             legend: {
                                 display: false
                             },
-                            cutoutPercentage: 80,
+                            cutout: 80,
                         },
                     });
                 }

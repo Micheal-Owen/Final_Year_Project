@@ -10,6 +10,7 @@ venv/
 # Python bytecode files
 __pycache__/
 *.pyc
+get-pip.py
 
 # Logs
 *.log

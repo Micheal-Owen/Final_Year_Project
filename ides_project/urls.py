@@ -41,7 +41,6 @@ urlpatterns = [
     path('attack-trends-data/', views.attack_trends_data, name='attack_trends_data'),
     path('protocol-usage-data/', views.protocol_usage_data, name='protocol_usage_data'),
     path('attack-severity-data/', views.attack_severity_data, name='attack_severity_data'),
-    path('response-time-data/', views.response_time_data, name='response_time_data'),
     path('correlation-matrix-data/', views.correlation_matrix_data, name='correlation_matrix_data'),
     path('most-used-ports-data/', views.most_used_ports_data, name='most_used_ports_data'),
     
@@ -63,3 +62,8 @@ urlpatterns = [
     path('traffic-overview-data/', views.traffic_overview_data, name='traffic_overview_data'),
     path('attack-types-data/', views.attack_types_data, name='attack_types_data'),
 ]
+
+handler404 = 'ids_app.views.custom_404'
+handler500 = 'ids_app.views.custom_500'
+handler403 = 'ids_app.views.custom_403'
+handler400 = 'ids_app.views.custom_400'

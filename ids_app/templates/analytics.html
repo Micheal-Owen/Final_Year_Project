@@ -12,17 +12,26 @@
         <h3 class="h3 mb-0 text-gray-800">IDS Analytics</h3>
     </div>
     
-    <!-- Date Range Filter -->
+    <!-- Date and Time Range Filter -->
     <div class="row mb-4">
-        <div class="col-md-6">
+        <div class="col-md-3">
             <label for="start_date">Start Date:</label>
             <input type="date" id="start_date" class="form-control">
         </div>
-        <div class="col-md-6">
+        <div class="col-md-3">
+            <label for="start_time">Start Time:</label>
+            <input type="time" id="start_time" class="form-control">
+        </div>
+        <div class="col-md-3">
             <label for="end_date">End Date:</label>
             <input type="date" id="end_date" class="form-control">
         </div>
+        <div class="col-md-3">
+            <label for="end_time">End Time:</label>
+            <input type="time" id="end_time" class="form-control">
+        </div>
     </div>
+
 
 
     <!-- Content Row -->
@@ -119,24 +128,7 @@
                 </div>
             </div>
         </div>
-
-        <!-- Response Time Analysis Chart -->
-        <div class="col-xl-6 col-lg-6">
-            <div class="card shadow mb-4">
-                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                    <h6 class="m-0 font-weight-bold text-primary">Response Time Analysis</h6>
-                </div>
-                <div class="card-body">
-                    <div class="chart-bar">
-                        <canvas id="responseTimeChart"></canvas>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Content Row -->
-    <div class="row">
+        
         <!-- Most Used Destination Ports Chart -->
         <div class="col-xl-6 col-lg-6">
             <div class="card shadow mb-4">
@@ -151,7 +143,6 @@
             </div>
         </div>
     </div>
-
 
     <!-- Content Row -->
     <div class="row">
@@ -179,12 +170,14 @@
     $(document).ready(function() {
     function updateGraphs() {
         var startDate = $('#start_date').val();
+        var startTime = $('#start_time').val();
         var endDate = $('#end_date').val();
+        var endTime = $('#end_time').val();
 
         $.ajax({
             url: "{% url 'real_time_network_traffic_data' %}",
             method: "GET",
-            data: { start_date: startDate, end_date: endDate },
+            data: { start_date: startDate, start_time: startTime, end_date: endDate, end_time: endTime },
             success: function(data) {
                 console.log(data); // Log the data to verify
                 var ctx = document.getElementById("networkTrafficChart").getContext("2d");
@@ -465,40 +458,6 @@
             }
         });
 
-        $.ajax({
-            url: "{% url 'response_time_data' %}",
-            method: "GET",
-            data: { start_date: startDate, end_date: endDate },
-            success: function(data) {
-                var ctx = document.getElementById("responseTimeChart").getContext("2d");
-                new Chart(ctx, {
-                    type: 'bar',
-                    data: {
-                        labels: data.incidents,
-                        datasets: [{
-                            label: "Response Time (s)",
-                            data: data.response_times,
-                            backgroundColor: "rgba(75, 192, 192, 0.2)",
-                            borderColor: "rgba(75, 192, 192, 1)",
-                            borderWidth: 1
-                        }]
-                    },
-                    options: {
-                        maintainAspectRatio: false,
-                        scales: {
-                            yAxes: [{
-                                ticks: {
-                                    beginAtZero: true
-                                }
-                            }]
-                        },
-                        legend: {
-                            display: true
-                        }
-                    }
-                });
-            }
-        });
 
         $.ajax({
             url: "{% url 'correlation_matrix_data' %}",
@@ -571,7 +530,7 @@
         });
     }
 
-    $('#start_date, #end_date').change(function() {
+    $('#start_date, #start_time, #end_date, #end_time').change(function() {
         updateGraphs();
     });
 

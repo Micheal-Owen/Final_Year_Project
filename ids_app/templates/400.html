@@ -1,0 +1,26 @@
+<!-- templates/400.html -->
+{% extends "error_base.html" %}
+
+{% block title %}Bad Request{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="error-template">
+                <h1>Oops!</h1>
+                <h2>400 Bad Request</h2>
+                <div class="error-details">
+                    Sorry, your request could not be processed due to a bad request.
+                </div>
+                <div class="error-actions">
+                    <a href="{% url 'cover' %}" class="btn btn-primary btn-lg">
+                        <span class="glyphicon glyphicon-home"></span>
+                        Take Me Home 
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
